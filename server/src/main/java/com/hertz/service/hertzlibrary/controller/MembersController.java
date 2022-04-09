@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 import static com.hertz.service.hertzlibrary.util.CollectionsUtils.convert;
 import static com.hertz.service.hertzlibrary.util.TokenDecoderUtil.userName;
 import static org.springframework.http.ResponseEntity.ok;
@@ -29,7 +31,7 @@ public class MembersController {
     @PostMapping("/books/borrowings")
     public ResponseEntity<BooksResponse> borrowBook(
             @RequestHeader("token") final String token,
-            @RequestBody final BookBorrowRequest borrowRequest
+            @RequestBody @Valid final BookBorrowRequest borrowRequest
     ) {
 
         var memberName = userName(token);
@@ -42,7 +44,7 @@ public class MembersController {
     @PostMapping("/books/returns")
     public ResponseEntity<BooksResponse> returnBook(
             @RequestHeader("token") final String token,
-            @RequestBody final BookReturnRequest returnRequest
+            @RequestBody @Valid final BookReturnRequest returnRequest
     ) {
 
         var memberName = userName(token);
