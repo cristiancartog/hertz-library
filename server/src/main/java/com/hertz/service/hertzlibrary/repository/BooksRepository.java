@@ -32,7 +32,7 @@ public class BooksRepository {
         books = new ArrayList<>();
         books.add(BookBo.builder().title("Introduction to Algorithms").author("Thomas Cormen").categories(List.of(HORROR)).build());
         books.add(BookBo.builder().title("1984").author("George Orwell").categories(List.of(SCIENCE_FICTION, DYSTOPIAN)).build());
-        books.add(BookBo.builder().title("The Magus").author("John Fowles").categories(List.of(ROMANCE, ADVENTURE)).build());
+        books.add(BookBo.builder().title("Clean Code").author("Uncle Bob").categories(List.of(ROMANCE, ADVENTURE)).build());
 
         books.add(BookBo.builder().title("b1").author("author1").categories(List.of(ADVENTURE, ROMANCE)).build());
         books.add(BookBo.builder().title("b2").author("author2").categories(List.of(ROMANCE, ADVENTURE)).build());

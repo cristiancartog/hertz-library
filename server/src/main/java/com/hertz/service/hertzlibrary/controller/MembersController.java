@@ -23,7 +23,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("library/members")
+@RequestMapping("/library/members")
 public class MembersController {
 
     private final MembersService membersService;
