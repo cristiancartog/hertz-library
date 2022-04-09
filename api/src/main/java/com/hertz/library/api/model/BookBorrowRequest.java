@@ -3,7 +3,8 @@ package com.hertz.library.api.model;
 import lombok.Data;
 
 @Data
-public class BookRentalRequest {
+public class BookBorrowRequest {
+
 
     private String title;
 

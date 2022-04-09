@@ -15,7 +15,9 @@ import static com.hertz.service.hertzlibrary.util.CollectionsUtils.convert;
 @Builder
 public class MemberBo {
 
-    private String name; // for simplicity, we'll assume each person on the planet has a distinct name
+    private String name; // for simplicity, assume each person on the planet has a distinct name
+
+    @Builder.Default
     private Set<BookBo> books = new HashSet<>();
 
     public int bookCount() {

@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MembersService {
@@ -18,25 +21,30 @@ public class MembersService {
     private final MemberRepository memberRepository;
     private final BooksRepository booksRepository;
 
-    public MemberBo rentBook(final String name, final String title) {
+    /**
+     * @return all the books the current member borrowed
+     */
+    public List<BookBo> borrowBook(final String name, final String title) {
         var book = getBook(title);
         var member = getMember(name);
 
-        if (canRentNewBook(member, book)) {
-            book.setRenterName(member.getName());
-            member.addBook(book);
-
-            return member;
-        } else {
+        if (!book.isBorrowable()) {
+            throw new IllegalArgumentException("This books was already borrowed");
+        }
+        if (member.bookCount() >= maxBooksPerMember) {
             throw new IllegalStateException("Member has already rented the maximum amount of books");
         }
+
+        book.setRenterName(member.getName());
+        member.addBook(book);
+
+        return new ArrayList<>(member.getBooks());
     }
 
-    private boolean canRentNewBook(final MemberBo member, final BookBo book) {
-        return book.getRenterName() == null && member.bookCount() < maxBooksPerMember;
-    }
-
-    public MemberBo returnBook(final String name, final String title) {
+    /**
+     * @return all the books the current member borrowed
+     */
+    public List<BookBo> returnBook(final String name, final String title) {
         var book = getBook(title);
         var member = getMember(name);
 
@@ -47,7 +55,7 @@ public class MembersService {
 
         book.setRenterName(null);
 
-        return member;
+        return new ArrayList<>(member.getBooks());
     }
 
     private BookBo getBook(final String title) {

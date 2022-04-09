@@ -76,13 +76,6 @@ public class BooksRepository {
         return book;
     }
 
-    public boolean isBookAvailable(final String title) {
-        return books
-                .stream()
-                .filter(b -> Objects.equals(b.getTitle(), title))
-                .anyMatch(b -> b.getRenterName() == null);
-    }
-
     public void deleteById(final String title) {
         books.removeIf(b -> Objects.equals(b.getTitle(), title));
     }

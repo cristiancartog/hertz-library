@@ -27,9 +27,15 @@ public class BooksService {
     }
 
     public void removeBookFromLibrary(final String title) {
-        var bookAvailableForRent = booksRepository.isBookAvailable(title);
+        var bookOpt = booksRepository.findBook(title);
 
-        if (!bookAvailableForRent) {
+        if (bookOpt.isEmpty()) {
+            throw new IllegalArgumentException("Book was not found");
+        }
+
+        var book = bookOpt.get();
+
+        if (book.getRenterName() != null) {
             throw new IllegalArgumentException("Book is currently lent, cannot be removed from library");
         }
 

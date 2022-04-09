@@ -19,6 +19,10 @@ public class BookBo {
     @Setter
     private String renterName;
 
+    public boolean isBorrowable() {
+        return renterName == null;
+    }
+
     public static BookBo ofBook(final Book book) {
         return BookBo.builder()
                 .author(book.getAuthor())
