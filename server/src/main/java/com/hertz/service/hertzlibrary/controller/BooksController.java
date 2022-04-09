@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import static com.hertz.service.hertzlibrary.util.CollectionsUtils.convert;
+import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -50,7 +51,7 @@ public class BooksController {
     public ResponseEntity<Book> addBook(@RequestBody @Valid final Book book) {
         var bookBo = booksService.addBookToLibrary(BookBo.ofBook(book));
 
-        return ok(bookBo.toBook());
+        return created(null).body(bookBo.toBook());
     }
 
     @DeleteMapping("/{title}")

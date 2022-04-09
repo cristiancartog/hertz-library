@@ -10,11 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.hertz.library.api.model.Category.ADVENTURE;
-import static com.hertz.library.api.model.Category.DYSTOPIAN;
-import static com.hertz.library.api.model.Category.HORROR;
-import static com.hertz.library.api.model.Category.ROMANCE;
-import static com.hertz.library.api.model.Category.SCIENCE_FICTION;
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -30,16 +26,16 @@ public class BooksRepository {
     @PostConstruct
     public void init() { // initial data for easier manual testing
         books = new ArrayList<>();
-        books.add(BookBo.builder().title("Introduction to Algorithms").author("Thomas Cormen").categories(List.of(HORROR)).build());
-        books.add(BookBo.builder().title("1984").author("George Orwell").categories(List.of(SCIENCE_FICTION, DYSTOPIAN)).build());
-        books.add(BookBo.builder().title("Clean Code").author("Uncle Bob").categories(List.of(ROMANCE, ADVENTURE)).build());
-
-        books.add(BookBo.builder().title("b1").author("author1").categories(List.of(ADVENTURE, ROMANCE)).build());
-        books.add(BookBo.builder().title("b2").author("author2").categories(List.of(ROMANCE, ADVENTURE)).build());
-        books.add(BookBo.builder().title("b3").author("author3").categories(List.of(ROMANCE, DYSTOPIAN, HORROR)).build());
-        books.add(BookBo.builder().title("b4").author("author4").categories(List.of(HORROR)).build());
-        books.add(BookBo.builder().title("b5").author("author5").categories(List.of(ROMANCE)).build());
-        books.add(BookBo.builder().title("b6").author("author6").categories(List.of(DYSTOPIAN, SCIENCE_FICTION)).build());
+//        books.add(BookBo.builder().title("Introduction to Algorithms").author("Thomas Cormen").categories(List.of(HORROR)).build());
+//        books.add(BookBo.builder().title("1984").author("George Orwell").categories(List.of(SCIENCE_FICTION, DYSTOPIAN)).build());
+//        books.add(BookBo.builder().title("Clean Code").author("Uncle Bob").categories(List.of(ROMANCE, ADVENTURE)).build());
+//
+//        books.add(BookBo.builder().title("b1").author("author1").categories(List.of(ADVENTURE, ROMANCE)).build());
+//        books.add(BookBo.builder().title("b2").author("author2").categories(List.of(ROMANCE, ADVENTURE)).build());
+//        books.add(BookBo.builder().title("b3").author("author3").categories(List.of(ROMANCE, DYSTOPIAN, HORROR)).build());
+//        books.add(BookBo.builder().title("b4").author("author4").categories(List.of(HORROR)).build());
+//        books.add(BookBo.builder().title("b5").author("author5").categories(List.of(ROMANCE)).build());
+//        books.add(BookBo.builder().title("b6").author("author6").categories(List.of(DYSTOPIAN, SCIENCE_FICTION)).build());
     }
 
     public List<BookBo> allBooks() {
@@ -47,6 +43,10 @@ public class BooksRepository {
     }
 
     public List<BookBo> findBooksInCategory(final Category category) {
+        if (category == null) {
+            return emptyList();
+        }
+
         return books
                 .stream()
                 .filter(book -> book.getCategories().contains(category))
